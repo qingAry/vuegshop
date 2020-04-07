@@ -12,12 +12,19 @@
 <script>
 import Header from './components/Header'
 import Footer from './components/Footer'
+import {reqBaseCategoryList} from '@/api'
 export default {
   name: 'App',
+  
+  async mounted(){
+  //  let result = await reqBaseCategoryList()
+  //  console.log(result)
+  },  
   components : {
     Header,
     Footer
-  }
+  },
+  
 }
 </script>
 
