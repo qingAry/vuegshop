@@ -1,8 +1,9 @@
 // vuex的核心管理库
 import Vue from 'vue'
 import Vuex from 'vuex'
-import home from './modules/home'
-import user from './modules/user'
+// import home from './modules/home'
+// import user from './modules/user'
+import modules from './modules'
 
 // 声明使用
 Vue.use(Vuex);
@@ -19,8 +20,9 @@ export default new Vuex.Store({
     baseCategoryList: [],
   }
    */
-  modules: {
-    home,
-    user
-  }
+  // modules: {
+  //   home,
+  //   user
+  // }
+  modules
 })

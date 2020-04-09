@@ -58,7 +58,12 @@
       getSearch(){
         // this.$router.push(`/search/${this.keyword}`,() => {})
         // path 不能和params搭配使用，只能使用name和params一起使用
-        this.$router.push({name:'search',params:{keyword:`${this.keyword}`}},() => {})
+        if(this.keyword){
+           this.$router.push({name:'search',params:{keyword:`${this.keyword}`}},() => {})
+        }else{
+          this.$router.push('/search')
+        }
+        
       }
     }
   }

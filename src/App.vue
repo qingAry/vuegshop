@@ -24,6 +24,10 @@ export default {
     Header,
     Footer
   },
+  mounted(){
+    //每次点击都会发送请求 放在总的入口文件中，相同的请求只需要触发一次
+    this.$store.dispatch("getBaseCategoryList");
+  }
   
 }
 </script>
