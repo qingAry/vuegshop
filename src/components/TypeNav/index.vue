@@ -136,7 +136,14 @@ import throttle from 'lodash/throttle'
               query.category3Id = category3id;
             }
             //push：动态的导航到一个新 URL
-            this.$router.push({path:'/search',query})
+            let { path } = this.$route;
+            // console.log( this.$route)
+           if( path.indexOf('/search') === 0){
+             //判断是否携带了search
+             this.$router.push({path,query})
+           }else{
+             this.$router.push({path:'/search',query})
+           }
           }
           
        },

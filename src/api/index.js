@@ -4,3 +4,6 @@ import mockAjax from './mockAjax'
 export  let  reqBaseCategoryList = () => ajax.get('/product/getBaseCategoryList')
 export let reqBanners = () => mockAjax.get('/banners');
 export let reqFloors = () => mockAjax.get('/floors');
+//获取search商品列表
+export  let  reqProductList = (searchParams) => ajax.post('/list',searchParams)
+// reqProductList({})

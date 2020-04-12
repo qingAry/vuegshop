@@ -28,7 +28,7 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <a class="logo" title="尚品汇" href="###" target="_blank">
+        <a class="logo" title="尚品汇" href="/">
           <img src="./images/Logo.png" alt="">
         </a>
       </h1>
@@ -54,17 +54,29 @@
         keyword:''
       }
     },
+    mounted(){
+      this.$bus.$on('removeKeyword',() =>{
+        this.keyword = ''
+      })
+    },
     methods:{
       getSearch(){
         // this.$router.push(`/search/${this.keyword}`,() => {})
         // path 不能和params搭配使用，只能使用name和params一起使用
         if(this.keyword){
-           this.$router.push({name:'search',params:{keyword:`${this.keyword}`}},() => {})
+          let { path,query } = this.$route;
+          if(path.indexOf('/search') === 0){
+            //用replace直接回退到首页
+            this.$router.replace({name:'search',params:{keyword:`${this.keyword}`},query})
+          }else{
+            this.$router.push({name:'search',params:{keyword:`${this.keyword}`}},() => {})
+          }
         }else{
           this.$router.push('/search')
         }
         
       }
+      
     }
   }
 </script>
