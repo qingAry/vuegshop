@@ -1,6 +1,7 @@
 module.exports = {
   lintOnSave: false, // 直接关闭eslint检查
   // lintOnSave: 'warning', // 只是输出提示信息, 项目正常运行
+  //代理服务器
   devServer: {
       proxy: {
         '/api': { // 只对请求路由以/api开头的请求进行代理转发

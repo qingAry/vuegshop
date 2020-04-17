@@ -33,7 +33,7 @@ export default {
     },
     async getBanners({commit}){
        let result = await reqBanners();
-       console.log('aaaaaaaaaaaaaaa');
+      //  console.log('aaaaaaaaaaaaaaa');
        if(result.code === 200){
          let banner = result.data;
          commit('RECEIVE_BANNERS',banner)

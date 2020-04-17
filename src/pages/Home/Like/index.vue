@@ -1,5 +1,5 @@
 <template>
-  <<div class="like">
+  <div class="like">
     <div class="py-container">
       <div class="title">
         <h3 class="fl">猜你喜欢</h3>

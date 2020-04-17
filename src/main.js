@@ -5,11 +5,17 @@ import router from './router'
 import store from './store'
 import TypeNav from './components/TypeNav'
 import Pagination from './components/Pagination'
-import detail from './components/'
 import 'swiper/css/swiper.min.css'
 // 轮播图
 import Carousel from './components/Carousel'
 import './mock/mockServer' // 加载mock接口的主模块
+// 引入接口api 包含所有方法的对象
+import * as API from '@/api'
+// 引入element-ui中引入的组件
+import '@/element'
+
+//将接口对象放到vue原型中使用,方便组件中进行调用使用
+Vue.prototype.$API = API
 
 Vue.config.productionTip = false
 //全局注册

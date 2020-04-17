@@ -2,9 +2,15 @@
 import home from './home'
 import user from './user'
 import search from './search'
+import detail from './detail'
+import shopCat from './shopCat'
+import order from './order'
 
 export default {
   home,
   user,
-  search
+  search,
+  detail,
+  shopCat,
+  order
 }

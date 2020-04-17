@@ -72,9 +72,13 @@
               <li class="yui3-u-1-5" v-for="(good,index) in goodsList" :key="good.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="javascript:;" target="_blank">
+                    <router-link :to = "`/detail/${good.id}`">
+                    <!-- <router-link to = "{name:'/detail',params:{mid:good.id}}"> -->
                       <img :src="good.defaultImg" />
-                    </a>
+                    </router-link>
+                    <!-- <a href="javascript:;" target="_blank">
+                      <img :src="good.defaultImg" />
+                    </a> -->
                   </div>
                   <div class="price">
                     <strong>
@@ -83,8 +87,9 @@
                     </strong>
                   </div>
                   <div class="attr">
-                    <a href="javascript:;" :title="good.title">Apple苹果iPhone
-                      {{good.title}}</a>
+                    <router-link :to = "{name:'/detail',params:{mid:good.id}}">
+                    {{good.title}}
+                    </router-link>
                   </div>
                   <div class="commit">
                     <i class="command">已有<span>2000</span>人评价</i>
@@ -103,7 +108,7 @@
               showPageNo : 5,//展示页数，来看多远能出现小圆点
               pageNo : options.pageNo, //当前的显示页数
               pageSize : options.pageSize, //一页显示几张
-            }" @changeCurrentPage = "changeCurrentPage"/>
+            }" @changeCurrentPage = "setProductList"/>
           </div>
         </div>
       </div>
@@ -164,6 +169,7 @@
      //当路由发生改变，调用此内容
      //点击搜索的categoryName 和 搜索框搜索的关键词 都能够在全部结果显示
      '$route' (to,from) {
+       //to是代表当前的路由对象
       let { query,params } = to;
       const options = {
         ...this.options,
@@ -176,6 +182,7 @@
       }
       //更新options
       this.options = options;
+      // this.options.pageNo = 1;
       this.setProductList()
      }
    },
@@ -208,7 +215,8 @@
       this.options.props[index] = '';
       this.setProductList()
     },
-    setProductList(){
+    setProductList(page){
+      this.options.pageNo = page;
       let options = this.options;
       //去除请求参数为空的数据
       Object.keys(options).forEach((key) => {

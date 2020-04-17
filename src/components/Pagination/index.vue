@@ -1,7 +1,7 @@
 <template>
   <!--分页组件-->
   <!-- 当商品界面有商品才显示页码 -->
-  <div class="pagination" v-if=" getTotalPage > 0 ">
+  <div class="pagination" v-if="pageConfig.total>0">
     <!--上一页-->
     <button :disabled = " currentPage === 1 " @click = "setCurrentPage(currentPage -1)">上一页</button>
     <!-- 第1页 -->
@@ -34,47 +34,39 @@
     props:{
        pageConfig: {
         type: Object,//当前config的类型
-        default: {
-          total:5, // 总记录数量
-          pageSize: 5, // 一页最多显示多条记录
-          pageNo: 1, // 当前在第几页
-          showPageNo: 5, // 连续显示的页码数
-        }
+        // default: {
+          default(){
+            return {
+              total: 0,  // 总记录数量
+              pageSize: 5, // 一页最多显示多条记录
+              pageNo: 1,// 当前在第几页
+              showPageNo: 5, // 连续显示的页码数
+            }
+          }
+          
+        // }
       },
     },
-    data(){
+    data(){   
       //data能获取props中的数据
       return {
-        currentPage: this.pageConfig.pageNo
-      }
-    },
-
-    methods:{
-      // 响应当前页码，更新商品界面
-      setCurrentPage(page) {
-        // console.log(this.currentPage)
-        // console.log(page)
-        this.currentPage = page;
-        // console.log(this.currentPage)
-        this.$emit('changeCurrentPage',page)
+        currentPage: this.pageConfig.pageNo   // 当前页码
       }
     },
     computed:{
-
       //获取总的页码数
       getTotalPage(){
-        //  let totalPage = Math.ceil( this.pageConfig.total / this.pageConfig.pageSize );
-        //  return totalPage;
-        return Math.ceil( this.pageConfig.total / this.pageConfig.pageSize )
+        //console.log('this.pageConfig.pageNo',this.pageConfig.pageNo)
+        const {total, pageSize} = this.pageConfig
+        if (total <= 0 || pageSize <= 0) return 0
+        return Math.ceil( total / pageSize )
       },
-      
       //得到小圆点开始的位置和结束的位置
       getPage(PageIndex){
-
          // 获取当前的属性
          let currentPage = this.currentPage;
          // 连续显示的页码数
-        //  let showPageNo = this.pageConfig.showPageNo;
+
         let { showPageNo } = this.pageConfig;
 
         //  //初始开始位置/结束位置
@@ -84,7 +76,6 @@
          //正常情况下start的开始位置
          let start = currentPage - Math.floor(showPageNo/2);
          let end = currentPage +  Math.floor(showPageNo/2);
-
          if(start < 1){
            start = 1
            //结束页码
@@ -96,9 +87,33 @@
          if(end > this.getTotalPage-2){
            end = this.getTotalPage
            start = end - Math.floor(showPageNo/2)*2;
+           // 如果start小于1, 指定为1
+            if (start<1) {
+              start = 1
+            }
          }
+         
          return { start , end }
       }
+    },
+      methods:{
+      // 响应当前页码，更新商品界面
+      setCurrentPage(page) {
+        // console.log(this.currentPage)
+        // console.log(page)
+        this.currentPage = page;
+        // console.log('this.currentPage'+this.currentPage)
+        this.$emit('changeCurrentPage',page)
+      }
+    },
+    watch:{
+      //监视当前页面发生改变的时
+      'pageConfig.default.pageNo' (value) {
+        this.currentPage = value
+      }
+    },
+    created () { // created()在data()之后执行
+      console.log('created()', this.currentPage) // 有值
     }
 
   }
