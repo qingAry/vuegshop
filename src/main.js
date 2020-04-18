@@ -6,6 +6,8 @@ import store from './store'
 import TypeNav from './components/TypeNav'
 import Pagination from './components/Pagination'
 import 'swiper/css/swiper.min.css'
+// 图片懒加载
+import VueLazyload from 'vue-lazyload'
 // 轮播图
 import Carousel from './components/Carousel'
 import './mock/mockServer' // 加载mock接口的主模块
@@ -13,9 +15,15 @@ import './mock/mockServer' // 加载mock接口的主模块
 import * as API from '@/api'
 // 引入element-ui中引入的组件
 import '@/element'
+//引入懒加载图片
+import loading from '@/assets/images/loading.gif'
 
 //将接口对象放到vue原型中使用,方便组件中进行调用使用
 Vue.prototype.$API = API
+
+Vue.use(VueLazyload, {
+  loading
+})
 
 Vue.config.productionTip = false
 //全局注册

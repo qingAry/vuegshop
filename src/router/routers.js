@@ -30,9 +30,9 @@ export default [
      component: AddCartSuccess,
     //只有携带的skuId和skuNum以及sessionStorage中有skuInfo数据, 才能查看添加购物车成功的界面
      beforeEnter(to,from,next){
-      //  console.log(to)
       let {skuId,skuNum} = to.query
-      if( skuId && skuNum && JSON.parse(sessionStorage.getItem('ADD_CART_KEY'))){
+      console.log('---------',sessionStorage.getItem('ADD_CART_KEY'))
+      if( skuId && skuNum && JSON.parse(sessionStorage.getItem('ADD_CART_KEY'))){    
          next()
       }else{
         next(from.path)
@@ -107,7 +107,7 @@ export default [
       if(from.path === '/trade'){
         next()
       }else{
-        next('/shopcart')
+        next('/trade')
       }
     }
   },
@@ -120,7 +120,7 @@ export default [
       if(from.path === '/pay'){
         next()
       }else{
-        next('/shopcart')
+        next('/pay')
       }
     }
   },
@@ -133,7 +133,7 @@ export default [
       if(from.path === '/shopcart'){
         next()
       }else{
-        next('/')
+        next('/shopcart')
       }
     }
   }

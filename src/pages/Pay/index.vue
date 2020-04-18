@@ -97,6 +97,7 @@
     },
     methods:{
        payNow(){
+
         QRCode.toDataURL(this.payInfo.codeUrl).then(
           url => {
             // console.log(url)
@@ -107,12 +108,50 @@
               showCancelButton:true,
               dangerouslyUseHTMLString:true,
               center: true,
-            });
-          }
-        ).catch(error => {
+            }).then(
+               result => {
+                //关闭二维码提示框
+                this.$msgbox.close()
+                // 关闭定时器
+                clearInterval(this.timer)
+                 //跳转到支付成功的页面
+                 this.$router.push('/paysuccess')
+               }
+            ).catch(
+              error => {
+                // 关闭定时器
+                clearInterval(this.timer)
+                this.$message.warning("请联系在线客服")
+              }
+            );
+            // 添加一个定时器 每隔一段时间判断请求是否完成
+            this.timer = setInterval(() => {
+              // 商品编号
+              let { orderId } = this.$route.query
+              this.$API.reqOrderIsPay(orderId).then(
+                value => {
+                  if(value.code === 200){
+                    // 如果状态码是200的话 表示支付成功
+                    // 关闭定时器
+                    clearInterval(this.timer)
+                    //关闭二维码提示框
+                    this.$msgbox.close()
+                    // 跳转支付成功的页码
+                    this.$router.push('/paysuccess')
+                    this.$message.success('支付成功')
+                  }                 
+                }
+              ).catch(error => {
+                // 关闭定时器
+                clearInterval(this.timer)
+                this.$message.error("支付失败，请刷新重试")
+            })
+          },3000)
+        }).catch(error => {
           this.$message.error("生成二维码失败")
-        })
+        }) 
       }
+      
     }
   }
 </script>

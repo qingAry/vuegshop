@@ -99,16 +99,13 @@
       methods:{
       // 响应当前页码，更新商品界面
       setCurrentPage(page) {
-        // console.log(this.currentPage)
-        // console.log(page)
         this.currentPage = page;
-        // console.log('this.currentPage'+this.currentPage)
         this.$emit('changeCurrentPage',page)
       }
     },
     watch:{
       //监视当前页面发生改变的时
-      'pageConfig.default.pageNo' (value) {
+      'pageConfig.pageNo' (value) {
         this.currentPage = value
       }
     },

@@ -5,11 +5,11 @@
       <div class="goods">
         <div class="left-good">
           <div class="left-pic">
-            <img :src="skuInfo.skuDefaultImg">
+            <img :src="skuInfo.skuDefaultImg || skuInfo.defaultImg">
           </div>
           <div class="right-info">
-            <p class="title">{{skuInfo.skuName}}</p>
-            <p class="attr">颜色：WFZ5099IH/5L钛金釜内胆 数量：{{this.$route.query.skuNum}}</p>
+            <p class="title">{{skuInfo.skuName || skuInfo.title}}</p>
+            <p class="attr">颜色：WFZ5099IH/5L钛金釜内胆 数量：{{this.$route.query.skuNum || 1}}</p>
           </div>
         </div>
         <div class="right-gocart">

@@ -74,7 +74,7 @@
                   <div class="p-img">
                     <router-link :to = "`/detail/${good.id}`">
                     <!-- <router-link to = "{name:'/detail',params:{mid:good.id}}"> -->
-                      <img :src="good.defaultImg" />
+                      <img v-lazy="good.defaultImg" />
                     </router-link>
                     <!-- <a href="javascript:;" target="_blank">
                       <img :src="good.defaultImg" />
@@ -95,7 +95,9 @@
                     <i class="command">已有<span>2000</span>人评价</i>
                   </div>
                   <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                    <!-- <router-link to="/addcartsuccess" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</router-link> -->
+                    <a href="javascript:;"
+                     class="sui-btn btn-bordered btn-danger" @click="addTocart(good)">加入购物车</a>
                     <a href="javascript:;" class="sui-btn btn-bordered">收藏</a>
                   </div>
                 </div>
@@ -108,7 +110,8 @@
               showPageNo : 5,//展示页数，来看多远能出现小圆点
               pageNo : options.pageNo, //当前的显示页数
               pageSize : options.pageSize, //一页显示几张
-            }" @changeCurrentPage = "setProductList"/>
+              }" @changeCurrentPage = "setProductList"/>
+            <!-- }" @changeCurrentPage = "changeCurrentPage"/> -->
           </div>
         </div>
       </div>
@@ -136,7 +139,7 @@
           trademark:'', //品牌ID:品牌名称
           order:'1:desc',  //排序方式  综合1,价格2 升序asc,降序desc"2:desc"
           pageNo:1,   //当前第几页
-          pageSize:3,   //每页最多显示多少条数据	
+          pageSize:5,   //每页最多显示多少条数据	
           props:[]
         }
       }
@@ -182,11 +185,23 @@
       }
       //更新options
       this.options = options;
-      // this.options.pageNo = 1;
+      this.options.pageNo = 1
       this.setProductList()
      }
    },
    methods:{
+     // 加入购物车
+    async addTocart(good){
+        let tmId = good.id
+        let result = await this.$store.dispatch('addToCart',{skuId:tmId, skuNum:1})       
+        if(!result){
+          window.sessionStorage.setItem('ADD_CART_KEY', JSON.stringify(good))
+          // this.$router.push('/addcartsuccess')
+          this.$router.push({path:'/addcartsuccess',query:{skuId:tmId, skuNum:1}})
+        }else{
+          alert("result.message")
+        }
+      },
      //移出列表的名称（路由的query参数）
      removeCategory(){
        this.options.category1Id = '', //一级分类ID
@@ -215,16 +230,19 @@
       this.options.props[index] = '';
       this.setProductList()
     },
-    setProductList(page){
-      this.options.pageNo = page;
+    setProductList( page = 1 ){
+      // 每次获取新的请求列表时，就将pageNo重置为1，每次默认就显示1
+      this.options.pageNo = page   
       let options = this.options;
+      // console.log(options)
       //去除请求参数为空的数据
       Object.keys(options).forEach((key) => {
         if(options[key] === ''){
           delete options[key]
         }
       })
-      this.$store.dispatch('getProductList',this.options)
+      //console.log(this.options.pageNo)
+      this.$store.dispatch('getProductList',this.options)          
     },
     setTrademark(tmId,tmName){
         //获取品牌的信息
@@ -277,11 +295,11 @@
       return orderIcon
     },
     //页码发生改变
-    changeCurrentPage(page){
-      this.options.pageNo = page;
-      //更新页数界面
-      this.setProductList()
-    }
+    // changeCurrentPage(page){
+    //   this.options.pageNo = page;
+    //   //更新页数界面
+    //   this.setProductList()
+    // }
      
    }
 
