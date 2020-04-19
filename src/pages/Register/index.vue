@@ -89,6 +89,7 @@
       },
       changeCode(){ 
         //如果每次图片相同，浏览器不会指定一个新的图片显示,加上事件戳之后就每次都是新的验证码图片
+        // this.$refs.code.src = `/api/user/passport/code?time=${Date.now()}`
         this.$refs.code.src = `/api/user/passport/code?time=${Date.now()}`
       }
     }

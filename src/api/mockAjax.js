@@ -24,4 +24,4 @@ ajax.interceptors.response.use((response) => {
 }
 )
 // 向外暴露ajax
-export default ajax
+export default mockAjax

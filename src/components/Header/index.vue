@@ -86,9 +86,10 @@
           let { path,query } = this.$route;
           if(path.indexOf('/search') === 0){
             //用replace直接回退到首页
+            // console.log('query',query)
             this.$router.replace({name:'search',params:{keyword:`${this.keyword}`},query})
           }else{
-            this.$router.push({name:'search',params:{keyword:`${this.keyword}`}},() => {})
+            this.$router.push({name:'search',params:{keyword:`${this.keyword}`}})
           }
         }else{
           this.$router.push('/search')

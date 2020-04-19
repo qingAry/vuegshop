@@ -52,7 +52,7 @@
                   </ul>
                 </td>
                 <td :rowspan="order.orderDetailList.length" width="8%" class="center">
-                  <a href="#" class="btn">{{item.orderStatus === "UNPAID" ? "已支付":"未支付"}} </a>
+                  <a href="#" class="btn">{{order.processStatus === "PAID" ? "已支付":"未支付"}} </a>
                 </td>
                 <td :rowspan="order.orderDetailList.length" width="13%" class="center">
                   <ul class="unstyled">

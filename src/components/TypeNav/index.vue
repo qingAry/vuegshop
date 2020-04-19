@@ -10,7 +10,7 @@
        @click="getSearch" v-if="isHidden">
         <div class="all-sort-list2">
           <!-- index中的用的值和循环中的值相等 -->
-          <!-- 列表快速花东的时候，不是目标列表不需要显示 -->
+          <!-- 列表快速滑动的时候，不是目标列表不需要显示 -->
           <div class="item" :class = "{ 'item_on':currentIndex === index}" v-for="(b1,index) in baseCategoryList"
            :key="b1.categoryId" @mouseenter="getcurrentIndex(index)">
            <!-- @mouseenter="currentIndex = index" -->
@@ -258,7 +258,7 @@ import throttle from 'lodash/throttle'
                             }
                         }
                         &.item_on{
-                            background-color: pink;
+                            background-color: #ccc;
                             .item-list{
                                 display:block;
                             }
