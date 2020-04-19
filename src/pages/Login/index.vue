@@ -93,8 +93,20 @@
                alert(error.message)
              }
            }
-         }
-       }
+         },
+          
+       },
+       beforeRouteEnter: (to, from, next)=> {
+            next(component => {
+              console.log(component.$store.state.user.userInfo.name)
+            // 通过 `vm` 访问组件实例
+              if(component.$store.state.user.userInfo.name){
+                next('/')
+              }else{
+                next()
+              }
+            })
+          }
   }
 </script>
 

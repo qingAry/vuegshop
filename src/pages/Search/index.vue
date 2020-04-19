@@ -110,7 +110,7 @@
               showPageNo : 5,//展示页数，来看多远能出现小圆点
               pageNo : options.pageNo, //当前的显示页数
               pageSize : options.pageSize, //一页显示几张
-              }" @changeCurrentPage = "setProductList"/>
+              }" @changeCurrentPage = "changeCurrentPage"/>
             <!-- }" @changeCurrentPage = "changeCurrentPage"/> -->
           </div>
         </div>
@@ -185,7 +185,6 @@
       }
       //更新options
       this.options = options;
-      this.options.pageNo = 1
       this.setProductList()
      }
    },
@@ -295,11 +294,11 @@
       return orderIcon
     },
     //页码发生改变
-    // changeCurrentPage(page){
-    //   this.options.pageNo = page;
-    //   //更新页数界面
-    //   this.setProductList()
-    // }
+    changeCurrentPage(page){
+      // this.options.pageNo = page;
+      //更新页数界面
+      this.setProductList(page)
+    }
      
    }
 

@@ -6,7 +6,7 @@
     <button :disabled = " currentPage === 1 " @click = "setCurrentPage(currentPage -1)">上一页</button>
     <!-- 第1页 -->
     <!-- 开始的位置要大于1才能显示1 -->
-    <button @click="setCurrentPage(1)" v-if=" getPage.start > 1">1</button>
+    <button @click="setCurrentPage(1)" v-if=" getPage.start > 1" :class = "{active:currentPage === 1}">1</button>
     <!-- 省略号 -->
     <button disabled v-if="getPage.start > 2">···</button>
       <!-- 连续页码 -->

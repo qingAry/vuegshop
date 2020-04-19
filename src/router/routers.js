@@ -62,14 +62,14 @@ export default [
       isHideFooter: true
     },
     //只有没有登陆, 才能查看登陆界面 路由独享守卫
-    beforeEnter: (to, from, next) => {
-	    if(store.state.user.userInfo.name){
-        next('/')
-      }else{
-        // 如果满足条件直接放行
-        next()
-      }
-    }
+    // beforeEnter: (to, from, next) => {
+	  //   if(store.state.user.userInfo.name){
+    //     next('/')
+    //   }else{
+    //     // 如果满足条件直接放行
+    //     next()
+    //   }
+    // }
 
   },
   {
